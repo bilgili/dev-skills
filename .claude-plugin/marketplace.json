@@ -1,0 +1,22 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "dev-skills",
+  "owner": {
+    "name": "Ahmet Bilgili",
+    "url": "https://github.com/bilgili"
+  },
+  "metadata": {
+    "description": "Agent Skills for Claude Code — spec-driven OpenSpec + TLA+ sub-agent workflow, and future skills.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "dev-skills",
+      "description": "Spec-driven OpenSpec + TLA+ sub-agent workflow (spec-author, design-gate, tla-checker, task-planner, implementer, verifier, optimizer).",
+      "source": "./",
+      "skills": [
+        "./skills/spec-driven-tla"
+      ]
+    }
+  ]
+}

@@ -22,21 +22,38 @@ OpenSpec phases and commands.
 
 Each skill lives under `skills/<skill-name>/` and gets one doc,
 `docs/<skill-name>.md`, with its own diagram. List it here under Skills with
-a one-paragraph summary and a link to its doc.
+a one-paragraph summary and a link to its doc. Also add `./skills/<skill-name>`
+to the `skills` array in [.claude-plugin/marketplace.json](.claude-plugin/marketplace.json)
+so the marketplace picks it up.
 
 ## Install
+
+### As a Claude Code plugin marketplace (recommended)
+
+```sh
+claude plugin marketplace add bilgili/dev-skills
+claude plugin install dev-skills@dev-skills
+```
+
+This registers this repo as a marketplace (`.claude-plugin/marketplace.json`)
+and installs the `dev-skills` plugin, which bundles every skill listed in
+that manifest — `spec-driven-tla` today, more as they're added. Claude Code
+picks up new skills on the next `claude plugin update` after a manifest
+change.
+
+### Standalone installer
 
 The installer is idempotent — re-running keeps what already exists. Run it
 from the target project's root.
 
-### macOS / Linux / Git Bash / WSL
+#### macOS / Linux / Git Bash / WSL
 
 ```sh
 git clone https://github.com/bilgili/dev-skills.git ~/dev-skills
 sh ~/dev-skills/skills/spec-driven-tla/install.sh
 ```
 
-### Windows (PowerShell)
+#### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/bilgili/dev-skills.git $HOME\dev-skills
@@ -46,7 +63,7 @@ powershell -ExecutionPolicy Bypass -File "$HOME\dev-skills\skills\spec-driven-tl
 Pass a target directory as the first argument to install somewhere other than
 the current directory.
 
-### As a Claude Code skill
+### As a Claude Code skill (manual symlink)
 
 Copy (or symlink) the skill directory into your Claude Code skills folder so
 `Skill` can discover it directly:
