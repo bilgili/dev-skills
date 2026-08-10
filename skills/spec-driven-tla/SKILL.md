@@ -6,8 +6,8 @@ description: Install a spec-driven, sub-agent development workflow into the curr
 # Spec-driven + TLA+ sub-agent workflow
 
 Bootstraps a full spec-driven pipeline into a target project. It installs seven
-role-scoped sub-agents, a TLA+ model directory, an OpenSpec workspace, a CLAUDE.md
-workflow section, and the TLA+ toolchain (TLC + SANY).
+role-scoped sub-agents, a TLA+ model directory, an OpenSpec workspace, and the
+TLA+ toolchain (TLC + SANY).
 
 ## What it installs
 
@@ -15,8 +15,12 @@ workflow section, and the TLA+ toolchain (TLC + SANY).
   implementer, verifier, optimizer (tool-scoped per role).
 - `specs/tla/` — home for `<change-id>.tla` models and `<change-id>.cfg` configs.
 - `openspec/` — via `openspec init` if not already present.
-- A `## Development workflow (spec-driven, sub-agent)` section appended to `CLAUDE.md`.
 - TLA+ toolchain: JDK + `~/tools/tla2tools.jar` + `tlc`/`sany` wrappers.
+
+The workflow contract (roles, the two hard rules, the pipeline graph) lives in
+[templates/workflow-section.md](templates/workflow-section.md). Read it, or
+paste it into your own `CLAUDE.md`, if you want the orchestrator contract
+documented in the target project — the installer no longer does this for you.
 
 Every step is idempotent — re-running keeps what exists.
 
@@ -42,9 +46,10 @@ lives at a different path (another machine, a plugin dir), substitute that path.
   If `tlc` is not on PATH, add `~/.local/bin` (POSIX) or `%USERPROFILE%\.local\bin`
   (Windows) to PATH.
 - The main session is the **orchestrator**: it routes work between the sub-agents,
-  enforces the phase gates, and never writes specs or code itself. See the appended
-  CLAUDE.md section for the full contract, the two hard rules (frozen interfaces,
-  revise loop), the mechanical guard, and the pipeline graph.
+  enforces the phase gates, and never writes specs or code itself. See
+  [templates/workflow-section.md](templates/workflow-section.md) for the full
+  contract, the two hard rules (frozen interfaces, revise loop), the mechanical
+  guard, and the pipeline graph.
 
 ## Using the workflow
 

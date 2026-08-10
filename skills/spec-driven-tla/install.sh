@@ -35,18 +35,7 @@ else
   echo "[!!] openspec CLI not found. Install it, then run: openspec init" >&2
 fi
 
-# 4. Workflow section in CLAUDE.md (append once; header is the idempotency marker).
-MARKER="## Development workflow (spec-driven, sub-agent)"
-if [ -f CLAUDE.md ] && grep -qF "$MARKER" CLAUDE.md; then
-  echo "[ok] CLAUDE.md workflow section present (kept)"
-else
-  [ -f CLAUDE.md ] || printf '# CLAUDE.md\n' > CLAUDE.md
-  printf '\n' >> CLAUDE.md
-  cat "$SKILL_DIR/templates/workflow-section.md" >> CLAUDE.md
-  echo "[ok] appended workflow section to CLAUDE.md"
-fi
-
-# 5. TLA+ toolchain (JDK + jar + tlc/sany wrappers). Bundled installer first.
+# 4. TLA+ toolchain (JDK + jar + tlc/sany wrappers). Bundled installer first.
 if command -v tlc >/dev/null 2>&1; then
   echo "[ok] tlc present"
 elif [ -x "$SKILL_DIR/scripts/install-tlaplus.sh" ]; then

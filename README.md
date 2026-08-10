@@ -81,9 +81,12 @@ ln -s ~/dev-skills/skills/spec-driven-tla ~/.claude/skills/spec-driven-tla
 - `specs/tla/` — home for `<change-id>.tla` models and `<change-id>.cfg`
   configs.
 - `openspec/` — via `openspec init`, if not already present.
-- A `## Development workflow (spec-driven, sub-agent)` section appended to
-  `CLAUDE.md`.
 - The TLA+ toolchain: JDK + `tla2tools.jar` + `tlc` / `sany` wrappers.
+
+The installer does not touch your `CLAUDE.md`. The orchestrator contract —
+roles, the two hard rules, the mechanical guard, the pipeline graph — lives in
+[skills/spec-driven-tla/templates/workflow-section.md](skills/spec-driven-tla/templates/workflow-section.md).
+Read it, or paste it into your own `CLAUDE.md` if you want it there.
 
 ### After install
 
@@ -91,8 +94,8 @@ ln -s ~/dev-skills/skills/spec-driven-tla ~/.claude/skills/spec-driven-tla
   `~/.local/bin` (POSIX) or `%USERPROFILE%\.local\bin` (Windows).
 - The main session becomes the **orchestrator**: it routes work between the
   sub-agents, enforces the phase gates, and never writes specs or code
-  itself. The appended `CLAUDE.md` section has the full contract, the two
-  hard rules, and the pipeline graph.
+  itself. See `workflow-section.md` (linked above) for the full contract, the
+  two hard rules, and the pipeline graph.
 
 ### Using the workflow
 

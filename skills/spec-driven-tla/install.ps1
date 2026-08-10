@@ -25,19 +25,7 @@ if (Test-Path openspec) { Write-Host '[ok] openspec already initialized' }
 elseif (Get-Command openspec -ErrorAction SilentlyContinue) { openspec init; Write-Host '[ok] openspec initialized' }
 else { Write-Host '[!!] openspec CLI not found. Install it, then run: openspec init' }
 
-# 4. Workflow section in CLAUDE.md (append once; header is the marker).
-$marker  = '## Development workflow (spec-driven, sub-agent)'
-$section = Join-Path $SkillDir 'templates\workflow-section.md'
-if ((Test-Path CLAUDE.md) -and (Select-String -SimpleMatch -Quiet -Pattern $marker -Path CLAUDE.md)) {
-  Write-Host '[ok] CLAUDE.md workflow section present (kept)'
-} else {
-  if (-not (Test-Path CLAUDE.md)) { "# CLAUDE.md" | Set-Content CLAUDE.md }
-  Add-Content CLAUDE.md "`n"
-  Get-Content $section | Add-Content CLAUDE.md
-  Write-Host '[ok] appended workflow section to CLAUDE.md'
-}
-
-# 5. TLA+ toolchain.
+# 4. TLA+ toolchain.
 if (Get-Command tlc -ErrorAction SilentlyContinue) { Write-Host '[ok] tlc present' }
 else {
   Write-Host '[..] installing TLA+ toolchain (bundled)'
