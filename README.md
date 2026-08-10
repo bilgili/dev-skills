@@ -13,10 +13,16 @@ TLA+ design check before interfaces freeze. Installs seven role-scoped
 sub-agents, a TLA+ model directory, an OpenSpec workspace, and the TLA+
 toolchain (TLC + SANY) into a target project.
 
-See [docs/design.md](docs/design.md) for the full pipeline diagram and
-per-agent write boundaries, [docs/tla-plus.md](docs/tla-plus.md) for what
-TLA+ and TLC check, and [docs/openspec.md](docs/openspec.md) for the OpenSpec
-phases and commands.
+See [docs/spec-driven-tla.md](docs/spec-driven-tla.md) for the full pipeline
+diagram and per-agent write boundaries, [docs/tla-plus.md](docs/tla-plus.md)
+for what TLA+ and TLC check, and [docs/openspec.md](docs/openspec.md) for the
+OpenSpec phases and commands.
+
+## Adding a skill
+
+Each skill lives under `skills/<skill-name>/` and gets one doc,
+`docs/<skill-name>.md`, with its own diagram. List it here under Skills with
+a one-paragraph summary and a link to its doc.
 
 ## Install
 

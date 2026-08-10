@@ -57,7 +57,8 @@ approved contract" from silently drifting apart.
 [`spec-driven-tla`](../skills/spec-driven-tla) drives the OpenSpec phases
 through seven role-scoped sub-agents, and adds a formal design gate: before
 interfaces freeze, the design is model-checked with [TLA+](tla-plus.md), not
-just read. See [the design](design.md) for the full pipeline and agent roles.
+just read. See [spec-driven-tla](spec-driven-tla.md) for the full pipeline
+diagram and agent roles.
 
 ## Learn more
 

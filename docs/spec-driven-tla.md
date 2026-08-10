@@ -1,4 +1,6 @@
-# Design: spec-driven-tla sub-agent pipeline
+# spec-driven-tla
+
+Skill: [`skills/spec-driven-tla`](../skills/spec-driven-tla).
 
 Seven role-scoped sub-agents carry one OpenSpec change from request to
 archive. The main session is the **orchestrator**: it routes work between
@@ -6,52 +8,12 @@ agents, enforces phase gates, and never writes specs or code itself.
 
 ## Pipeline diagram
 
-```mermaid
-flowchart TD
-    Req([Feature request]) --> SA
-
-    SA["spec-author<br/>proposal.md, design.md,<br/>specs/tla/&lt;id&gt;.tla<br/><i>writes: openspec/, specs/tla/</i>"]
-    SA --> DG
-
-    DG{"design-gate<br/>validate --strict, review<br/>owns specs/tla/&lt;id&gt;.cfg<br/><i>read-only on code</i>"}
-    DG -->|"props to check"| TC
-    TC["tla-checker<br/>SANY + TLC (+ Apalache)<br/>PASS or FAIL + counterexample<br/><i>read-only</i>"]
-    TC -->|"PASS"| DG
-    TC -->|"FAIL: counterexample"| SA
-
-    DG -->|"APPROVE<br/>interfaces FROZEN"| TP
-    DG -->|"REJECT: named property"| SA
-
-    TP["task-planner<br/>tasks.md, traced to spec<br/><i>writes: tasks.md only</i>"]
-    TP --> IM
-
-    IM["implementer<br/>code to frozen contracts<br/><i>full code access, except design.md /<br/>specs/tla/* / interface files</i>"]
-    IM -->|"interface friction"| Esc([stop + escalate:<br/>new OpenSpec change])
-    IM --> VF
-
-    VF["verifier<br/>tests from spec scenarios,<br/>not from code<br/><i>writes: tests/ only</i>"]
-    VF -->|"green"| Arc([openspec archive])
-    VF -->|"red"| IM
-
-    Arc --> OP
-
-    OP["optimizer<br/>advisory, post-archive<br/><i>read-only everywhere</i>"]
-    OP -->|"SAFE: internals only"| IM
-    OP -->|"INTERFACE: new contract"| SA
-
-    classDef gate fill:#3730a3,stroke:#1e1b4b,color:#fff
-    classDef write fill:#065f46,stroke:#022c22,color:#fff
-    classDef ro fill:#7c2d12,stroke:#431407,color:#fff
-    classDef term fill:#334155,stroke:#0f172a,color:#fff
-    class SA,TP,IM,VF write
-    class DG gate
-    class TC,OP ro
-    class Req,Esc,Arc term
-```
+![spec-driven-tla sub-agent pipeline](spec-driven-tla.svg)
 
 Color key: green = write access to its own artifacts, indigo = the gate
 (read-only code, owns `.cfg`), brown = read-only report-only agents, gray =
-pipeline endpoints.
+pipeline endpoints. Solid black = pipeline flow, dashed red = reject/fail
+loop, dashed blue = advisory loop (post-archive).
 
 ## Agent roles and write boundaries
 

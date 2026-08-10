@@ -60,6 +60,9 @@ between design and implementation:
 - A counterexample sends the spec-author back to revise the `.tla` model —
   never a prose argument back to the gate.
 
+See [spec-driven-tla](spec-driven-tla.md) for the full pipeline diagram and
+agent write boundaries.
+
 ## Learn more
 
 - [Lamport's TLA+ Home Page](https://lamport.azurewebsites.net/tla/tla.html)
