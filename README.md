@@ -1,0 +1,88 @@
+# dev-skills
+
+Agent Skills for [Claude Code](https://claude.com/claude-code) — packaged,
+installable workflows for AI-assisted development.
+
+## Skills
+
+### [spec-driven-tla](skills/spec-driven-tla)
+
+A spec-driven, sub-agent development workflow: OpenSpec phases (proposal →
+design → tasks → implementation → verification → archive), gated by a formal
+TLA+ design check before interfaces freeze. Installs seven role-scoped
+sub-agents, a TLA+ model directory, an OpenSpec workspace, and the TLA+
+toolchain (TLC + SANY) into a target project.
+
+See [docs/design.md](docs/design.md) for the full pipeline diagram and
+per-agent write boundaries, [docs/tla-plus.md](docs/tla-plus.md) for what
+TLA+ and TLC check, and [docs/openspec.md](docs/openspec.md) for the OpenSpec
+phases and commands.
+
+## Install
+
+The installer is idempotent — re-running keeps what already exists. Run it
+from the target project's root.
+
+### macOS / Linux / Git Bash / WSL
+
+```sh
+git clone https://github.com/bilgili/dev-skills.git ~/dev-skills
+sh ~/dev-skills/skills/spec-driven-tla/install.sh
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/bilgili/dev-skills.git $HOME\dev-skills
+powershell -ExecutionPolicy Bypass -File "$HOME\dev-skills\skills\spec-driven-tla\install.ps1"
+```
+
+Pass a target directory as the first argument to install somewhere other than
+the current directory.
+
+### As a Claude Code skill
+
+Copy (or symlink) the skill directory into your Claude Code skills folder so
+`Skill` can discover it directly:
+
+```sh
+git clone https://github.com/bilgili/dev-skills.git ~/dev-skills
+ln -s ~/dev-skills/skills/spec-driven-tla ~/.claude/skills/spec-driven-tla
+```
+
+### What gets installed
+
+- `.claude/agents/*.md` — `spec-author`, `design-gate`, `tla-checker`,
+  `task-planner`, `implementer`, `verifier`, `optimizer` (tool-scoped per
+  role).
+- `specs/tla/` — home for `<change-id>.tla` models and `<change-id>.cfg`
+  configs.
+- `openspec/` — via `openspec init`, if not already present.
+- A `## Development workflow (spec-driven, sub-agent)` section appended to
+  `CLAUDE.md`.
+- The TLA+ toolchain: JDK + `tla2tools.jar` + `tlc` / `sany` wrappers.
+
+### After install
+
+- Verify the toolchain: `tlc -help`. If `tlc` is not on `PATH`, add
+  `~/.local/bin` (POSIX) or `%USERPROFILE%\.local\bin` (Windows).
+- The main session becomes the **orchestrator**: it routes work between the
+  sub-agents, enforces the phase gates, and never writes specs or code
+  itself. The appended `CLAUDE.md` section has the full contract, the two
+  hard rules, and the pipeline graph.
+
+### Using the workflow
+
+1. Dispatch **spec-author** for a new feature → `proposal.md`, spec deltas,
+   `design.md`, and `specs/tla/<change-id>.tla`.
+2. Dispatch **design-gate** → reviews, writes `specs/tla/<change-id>.cfg`,
+   requests a TLA+ check. On APPROVE, interfaces FREEZE.
+3. Dispatch **tla-checker** → SANY + TLC; PASS or FAIL with counterexample.
+4. On approval → **task-planner** (`tasks.md`) → **implementer** (code to
+   frozen contracts) → **verifier** (spec-derived tests, then
+   `openspec archive`).
+5. Post-archive → **optimizer** (advisory; SAFE or INTERFACE proposals).
+
+## License
+
+[MIT](LICENSE)
