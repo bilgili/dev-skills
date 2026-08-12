@@ -8,6 +8,12 @@ The **main session is the orchestrator**. It routes work between the sub-agents 
 `.claude/agents/`, enforces the phase gates and the frozen-interface rule, and
 **never writes specs or code itself** during this workflow.
 
+Every Markdown artifact — `proposal.md`, spec deltas, `design.md`, `tasks.md`,
+and the optimizer's proposals — is written in **ASD-STE100 Simplified
+Technical English**: one instruction per sentence, active voice, one word per
+meaning. Code, identifiers, and quoted error or trace text stay exact; STE
+governs prose only.
+
 ### The agents and their rules
 
 - **spec-author** — writes the OpenSpec change (`proposal.md`, spec deltas with

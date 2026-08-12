@@ -17,6 +17,11 @@ TLA+ toolchain (TLC + SANY).
 - `openspec/` — via `openspec init` if not already present.
 - TLA+ toolchain: JDK + `~/tools/tla2tools.jar` + `tlc`/`sany` wrappers.
 
+Every agent that writes Markdown — spec-author, task-planner, optimizer, and
+design-gate's verdicts — writes it in **ASD-STE100 Simplified Technical
+English**. This rule is built into each agent's prompt, so it holds in any
+target project, independent of that project's own `CLAUDE.md`.
+
 The workflow contract (roles, the two hard rules, the pipeline graph) lives in
 [templates/workflow-section.md](templates/workflow-section.md). Read it, or
 paste it into your own `CLAUDE.md`, if you want the orchestrator contract

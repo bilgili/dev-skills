@@ -39,6 +39,15 @@ loop, dashed blue = advisory loop (post-archive).
    prose argument) or **evidence the objection does not hold** (returned to
    the gate). The gate re-reviews only models that PASS.
 
+## Documentation style: ASD-STE100
+
+`spec-author`, `task-planner`, `optimizer`, and `design-gate`'s verdicts write
+their Markdown in **ASD-STE100 Simplified Technical English** — one
+instruction per sentence, active voice, one word per meaning. The rule is
+built into each agent's prompt, so it holds in any target project regardless
+of that project's own `CLAUDE.md`. Code, identifiers, and quoted error or
+trace text stay exact; STE governs prose only.
+
 ## Why the design gate is formal, not just a review
 
 A prose review catches what the reviewer thinks to check. Turning every

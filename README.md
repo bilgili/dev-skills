@@ -11,7 +11,8 @@ A spec-driven, sub-agent development workflow: OpenSpec phases (proposal →
 design → tasks → implementation → verification → archive), gated by a formal
 TLA+ design check before interfaces freeze. Installs seven role-scoped
 sub-agents, a TLA+ model directory, an OpenSpec workspace, and the TLA+
-toolchain (TLC + SANY) into a target project.
+toolchain (TLC + SANY) into a target project. Every generated spec, design,
+and task doc is written in ASD-STE100 Simplified Technical English.
 
 See [docs/spec-driven-tla.md](docs/spec-driven-tla.md) for the full pipeline
 diagram and per-agent write boundaries, [docs/tla-plus.md](docs/tla-plus.md)

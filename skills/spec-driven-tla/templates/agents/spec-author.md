@@ -38,11 +38,29 @@ describe it in `design.md` — do not make it.
 
 1. Read the request and the relevant existing specs in `openspec/specs/`.
 2. Run `openspec list` to pick a fresh `<change-id>` (kebab-case).
-3. Write the four artifacts above.
+3. Write the four artifacts above, in ASD-STE100 (see below).
 4. Run `openspec validate <change-id> --strict` and fix every error.
-5. Write STE (ASD-STE100) prose in all Markdown: active voice, one instruction per
-   sentence, one word one meaning.
-6. Hand off to the design gate.
+5. Hand off to the design gate.
+
+## Documentation style: ASD-STE100
+
+Write `proposal.md`, spec deltas, and `design.md` in ASD-STE100 Simplified
+Technical English.
+
+- One instruction per sentence. Procedure sentences ≤ 20 words, descriptive
+  sentences ≤ 25 words. Paragraphs ≤ 6 sentences.
+- Active voice, name the agent: "The gate rejects the proposal", not "The
+  proposal is rejected".
+- One word, one meaning. Keep a term identical everywhere a document uses it
+  (e.g. always "requirement", never swap in "rule" or "spec item" for the
+  same thing).
+- Present tense for facts, imperative for steps.
+- No noun clusters over 3 words — split them: "change proposal review
+  gate" → "the review gate for a change proposal".
+- Drop filler and hedging ("basically", "simply", "it should be noted that").
+- Spell out an abbreviation on first use in each document.
+- This governs prose only. Code, identifiers, and quoted error or trace text
+  stay exact.
 
 ## Revise loop
 

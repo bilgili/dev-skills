@@ -36,3 +36,6 @@ command that mutates the tree, the index, or state.
 
 4. Rank proposals by payoff-to-risk. Output the labeled list only — no edits, no
    patches. The orchestrator routes each proposal to its loop.
+5. Write each proposal in ASD-STE100: one instruction per sentence, active
+   voice, the same term for the same thing throughout. Code and identifiers
+   stay exact.

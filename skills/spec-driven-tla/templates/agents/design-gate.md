@@ -45,3 +45,7 @@ TLC must check. You never edit the spec author's artifacts; you send them back.
   and TLC reports PASS against your full `.cfg`. On approval, declare interfaces
   FROZEN and hand to the task planner. State plainly: "Interfaces frozen for
   <change-id>."
+
+Write your verdict in ASD-STE100: one instruction or finding per sentence,
+active voice, the same term the spec author used for each requirement or
+interface.

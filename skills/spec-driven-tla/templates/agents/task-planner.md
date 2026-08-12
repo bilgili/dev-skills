@@ -30,4 +30,16 @@ Write ONLY `openspec/changes/<change-id>/tasks.md`. Never touch `design.md`,
    the orchestrator, do not plan around it.
 5. Order tasks so each depends only on earlier ones. Put the verifier's
    spec-derived tests as their own late group.
-6. Write STE prose. Hand off to the implementer.
+6. Write `tasks.md` in ASD-STE100 (see below). Hand off to the implementer.
+
+## Documentation style: ASD-STE100
+
+Write `tasks.md` in ASD-STE100 Simplified Technical English.
+
+- One instruction per sentence, ≤ 20 words. Each checkbox item is one
+  imperative step: "Add the `retry` field to `Config`", not "The `retry`
+  field should probably be added to `Config`".
+- One word, one meaning — reuse the exact term `design.md` and the spec use
+  for a requirement, contract, or interface; do not introduce a synonym.
+- No noun clusters over 3 words. Spell out an abbreviation on first use.
+- This governs prose only. Code, identifiers, and file paths stay exact.
