@@ -19,6 +19,19 @@ diagram and per-agent write boundaries, [docs/tla-plus.md](docs/tla-plus.md)
 for what TLA+ and TLC check, and [docs/openspec.md](docs/openspec.md) for the
 OpenSpec phases and commands.
 
+### [spec-driven-tla-parallel](skills/spec-driven-tla-parallel)
+
+A fork of `spec-driven-tla` that fans implementation out across multiple
+concurrent implementer agents instead of one. `task-planner` tags every
+`tasks.md` group with the files it touches and what it depends on; a new
+`implementation-orchestrator` agent batches the parallel-safe groups, runs
+each in its own git worktree, and merges finished work back — the main
+session dispatches the batch's `implementer` agents concurrently, in one
+message.
+
+See [docs/spec-driven-tla-parallel.md](docs/spec-driven-tla-parallel.md) for
+the full pipeline diagram, the batch loop, and per-agent write boundaries.
+
 ## Adding a skill
 
 Each skill lives under `skills/<skill-name>/` and gets one doc,

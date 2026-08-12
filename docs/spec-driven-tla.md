@@ -59,6 +59,8 @@ that was checked, not just a design that was read.**
 
 ## See also
 
+- [spec-driven-tla-parallel](spec-driven-tla-parallel.md) — a fork that fans
+  implementation out across multiple concurrent implementer agents.
 - [TLA+](tla-plus.md) — what it models, TLC, why bounds matter.
 - [OpenSpec](openspec.md) — phases, workspace layout, key commands.
 - [`skills/spec-driven-tla`](../skills/spec-driven-tla) — the installable
