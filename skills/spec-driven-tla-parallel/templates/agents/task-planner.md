@@ -37,7 +37,8 @@ Write ONLY `openspec/changes/<change-id>/tasks.md`. Never touch `design.md`,
      `none` group is parallel-safe.
 6. Put the verifier's spec-derived tests as their own late group, depending
    on every implementation group.
-7. Write `tasks.md` in ASD-STE100 (see below). Hand off to the
+7. Write `tasks.md` in ASD-STE100 (see below). Hand off to the orchestrator —
+   it checkpoints with the user before dispatching the
    implementation-orchestrator.
 
 ## Example group

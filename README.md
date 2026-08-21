@@ -12,7 +12,10 @@ design → tasks → implementation → verification → archive), gated by a fo
 TLA+ design check before interfaces freeze. Installs seven role-scoped
 sub-agents, a TLA+ model directory, an OpenSpec workspace, and the TLA+
 toolchain (TLC + SANY) into a target project. Every generated spec, design,
-and task doc is written in ASD-STE100 Simplified Technical English.
+and task doc is written in ASD-STE100 Simplified Technical English. The
+orchestrator pauses twice for the user: once after the design freezes, to
+offer `/design` diagrams, and once after `tasks.md` is written, to confirm
+before implementation starts.
 
 See [docs/spec-driven-tla.md](docs/spec-driven-tla.md) for the full pipeline
 diagram and per-agent write boundaries, [docs/tla-plus.md](docs/tla-plus.md)
@@ -27,7 +30,8 @@ concurrent implementer agents instead of one. `task-planner` tags every
 `implementation-orchestrator` agent batches the parallel-safe groups, runs
 each in its own git worktree, and merges finished work back — the main
 session dispatches the batch's `implementer` agents concurrently, in one
-message.
+message. Same two human checkpoints as `spec-driven-tla`: diagrams after the
+design freezes, confirmation before implementation starts.
 
 See [docs/spec-driven-tla-parallel.md](docs/spec-driven-tla-parallel.md) for
 the full pipeline diagram, the batch loop, and per-agent write boundaries.

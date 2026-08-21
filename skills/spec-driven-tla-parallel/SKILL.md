@@ -65,9 +65,12 @@ that path.
   sub-agents, enforces the phase gates, and never writes specs or code
   itself. It is also the only agent that dispatches other agents — the
   implementation-orchestrator plans batches and integrates results, but the
-  main session fires the parallel `implementer` calls. See
+  main session fires the parallel `implementer` calls. It also owns two
+  **human checkpoints** — it pauses and asks the user before diagramming and
+  before implementation, and never assumes the answer. See
   [templates/workflow-section.md](templates/workflow-section.md) for the
-  full contract, the two hard rules, the batch loop, and the pipeline graph.
+  full contract, the three hard rules, the checkpoints, the batch loop, and
+  the pipeline graph.
 
 ## Using the workflow
 
@@ -76,17 +79,22 @@ that path.
 2. Dispatch **design-gate** → reviews, writes `specs/tla/<change-id>.cfg`,
    requests a TLA+ check. On APPROVE, interfaces FREEZE.
 3. Dispatch **tla-checker** → SANY + TLC; PASS or FAIL with counterexample.
-4. On approval → **task-planner** → `tasks.md`, every group tagged `Files:`
-   and `Depends on:`.
-5. Dispatch **implementation-orchestrator** (Plan mode) → batches
+4. **Checkpoint 1** — ask the user: create diagrams with `/design` before
+   implementation? On yes, run the `design` skill seeded from `design.md`
+   and the TLA+ model.
+5. Dispatch **task-planner** → `tasks.md`, every group tagged `Files:` and
+   `Depends on:`.
+6. **Checkpoint 2** — ask the user: continue to implementation? On no, stop;
+   no worktree is created, and the user resumes explicitly later.
+7. Dispatch **implementation-orchestrator** (Plan mode) → batches
    parallel-safe groups, creates one git worktree per group, reports the
    batch.
-6. Dispatch one **implementer** per group in the batch, in a single message
+8. Dispatch one **implementer** per group in the batch, in a single message
    so they run concurrently. Each works only inside its own worktree.
-7. Dispatch **implementation-orchestrator** (Integrate mode) → merges each
+9. Dispatch **implementation-orchestrator** (Integrate mode) → merges each
    finished worktree, checks off `tasks.md`, removes worktrees, escalates on
    conflict or scope friction.
-8. Repeat 5–7 until every group in `tasks.md` is checked.
-9. Dispatch **verifier** → spec-derived tests on the integrated branch, then
-   `openspec archive`.
-10. Post-archive → **optimizer** (advisory; SAFE or INTERFACE proposals).
+10. Repeat 7–9 until every group in `tasks.md` is checked.
+11. Dispatch **verifier** → spec-derived tests on the integrated branch, then
+    `openspec archive`.
+12. Post-archive → **optimizer** (advisory; SAFE or INTERFACE proposals).

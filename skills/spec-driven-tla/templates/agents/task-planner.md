@@ -30,7 +30,8 @@ Write ONLY `openspec/changes/<change-id>/tasks.md`. Never touch `design.md`,
    the orchestrator, do not plan around it.
 5. Order tasks so each depends only on earlier ones. Put the verifier's
    spec-derived tests as their own late group.
-6. Write `tasks.md` in ASD-STE100 (see below). Hand off to the implementer.
+6. Write `tasks.md` in ASD-STE100 (see below). Hand off to the orchestrator —
+   it checkpoints with the user before dispatching the implementer.
 
 ## Documentation style: ASD-STE100
 

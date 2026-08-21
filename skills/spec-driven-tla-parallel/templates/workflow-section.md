@@ -80,6 +80,26 @@ trace text stay exact; STE governs prose only.
    task planner re-scopes the groups, and the batch re-runs. No implementer ever
    widens its own scope mid-batch.
 
+### Human checkpoints
+
+Only the orchestrator talks to the user — no sub-agent asks a question, including
+the implementation-orchestrator. It pauses at two points and waits for a reply
+before dispatching the next agent. It never assumes an answer.
+
+1. **Diagrams checkpoint** — right after the design gate approves and interfaces
+   FREEZE, before dispatching the task planner. Ask the user: "Design approved for
+   `<change-id>`. Create diagrams (architecture, sequence, or flow) with `/design`
+   before implementation?" On yes, invoke the `design` skill, seeded with the
+   module boundaries and data flow from `design.md` and the state transitions
+   (`Init`/`Next`) from `specs/tla/<change-id>.tla`. On no, or once diagramming is
+   done, dispatch the task planner.
+2. **Implementation checkpoint** — right after the task planner writes `tasks.md`,
+   before dispatching the implementation-orchestrator's first **Plan**. Ask the
+   user: "`tasks.md` ready for `<change-id>` (N groups). Continue to
+   implementation?" On no, stop the pipeline — no worktree is created, `tasks.md`
+   is saved, and the user resumes it explicitly later. On yes, dispatch the
+   implementation-orchestrator to plan the first batch.
+
 ### Mechanical guard
 
 Reject any diff that modifies `design.md`, `specs/tla/*`, or an interface definition
@@ -89,7 +109,16 @@ outside its group's `Files:` list. Either is invalid by construction.
 ### The batch loop
 
 ```
+design-gate APPROVE (interfaces FROZEN)
+      │
+      ▼
+CHECKPOINT 1 — ask user: /design diagrams before implementation?
+      │
+      ▼
 task-planner → tasks.md (groups tagged Files: / Depends on:)
+      │
+      ▼
+CHECKPOINT 2 — ask user: continue to implementation?
       │
       ▼
 implementation-orchestrator (Plan)

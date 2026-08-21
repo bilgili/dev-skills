@@ -58,6 +58,25 @@ governs prose only.
    the model and re-checks before re-review) or **evidence the objection does not
    hold** (returned to the gate). The gate re-reviews only models that PASS TLC.
 
+### Human checkpoints
+
+Only the orchestrator talks to the user — no sub-agent asks a question. It pauses
+at two points and waits for a reply before dispatching the next agent. It never
+assumes an answer.
+
+1. **Diagrams checkpoint** — right after the design gate approves and interfaces
+   FREEZE, before dispatching the task planner. Ask the user: "Design approved for
+   `<change-id>`. Create diagrams (architecture, sequence, or flow) with `/design`
+   before implementation?" On yes, invoke the `design` skill, seeded with the
+   module boundaries and data flow from `design.md` and the state transitions
+   (`Init`/`Next`) from `specs/tla/<change-id>.tla`. On no, or once diagramming is
+   done, dispatch the task planner.
+2. **Implementation checkpoint** — right after the task planner writes `tasks.md`,
+   before dispatching the implementer. Ask the user: "`tasks.md` ready for
+   `<change-id>` (N tasks). Continue to implementation?" On no, stop the pipeline —
+   `tasks.md` is saved, and the user resumes it explicitly later. On yes, dispatch
+   the implementer.
+
 ### Mechanical guard
 
 Reject any diff that modifies `design.md`, `specs/tla/*`, or an interface definition
@@ -82,8 +101,18 @@ through a new OpenSpec proposal is invalid by construction.
                           APPROVE  │  ▲ REJECT (named property)
                   interfaces FROZEN ▼  └──────────────┐
                             ┌──────────────┐          │ interface friction
-                            │ task-planner │          │ → new OpenSpec change
+                            │ CHECKPOINT 1 │          │ → new OpenSpec change
+                            │ /design ?    │          │
+                            └──────┬───────┘          │
+                                   ▼                  │
+                            ┌──────────────┐          │
+                            │ task-planner │          │
                             │ tasks.md     │          │
+                            └──────┬───────┘          │
+                                   ▼                  │
+                            ┌──────────────┐          │
+                            │ CHECKPOINT 2 │          │
+                            │ implement?   │          │
                             └──────┬───────┘          │
                                    ▼                  │
                             ┌──────────────┐          │

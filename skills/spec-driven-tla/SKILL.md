@@ -51,10 +51,12 @@ lives at a different path (another machine, a plugin dir), substitute that path.
   If `tlc` is not on PATH, add `~/.local/bin` (POSIX) or `%USERPROFILE%\.local\bin`
   (Windows) to PATH.
 - The main session is the **orchestrator**: it routes work between the sub-agents,
-  enforces the phase gates, and never writes specs or code itself. See
+  enforces the phase gates, and never writes specs or code itself. It also owns
+  two **human checkpoints** — it pauses and asks the user before diagramming and
+  before implementation, and never assumes the answer. See
   [templates/workflow-section.md](templates/workflow-section.md) for the full
-  contract, the two hard rules (frozen interfaces, revise loop), the mechanical
-  guard, and the pipeline graph.
+  contract, the two hard rules (frozen interfaces, revise loop), the checkpoints,
+  the mechanical guard, and the pipeline graph.
 
 ## Using the workflow
 
@@ -63,6 +65,12 @@ lives at a different path (another machine, a plugin dir), substitute that path.
 2. Dispatch **design-gate** → reviews, writes `specs/tla/<change-id>.cfg`, requests
    a TLA+ check. On APPROVE, interfaces FREEZE.
 3. Dispatch **tla-checker** → SANY + TLC; PASS or FAIL with counterexample.
-4. On approval → **task-planner** (`tasks.md`) → **implementer** (code to frozen
-   contracts) → **verifier** (spec-derived tests, then `openspec archive`).
-5. Post-archive → **optimizer** (advisory; SAFE or INTERFACE proposals).
+4. **Checkpoint 1** — ask the user: create diagrams with `/design` before
+   implementation? On yes, run the `design` skill seeded from `design.md` and the
+   TLA+ model.
+5. Dispatch **task-planner** → `tasks.md`.
+6. **Checkpoint 2** — ask the user: continue to implementation? On no, stop; the
+   user resumes explicitly later.
+7. Dispatch **implementer** (code to frozen contracts) → **verifier**
+   (spec-derived tests, then `openspec archive`).
+8. Post-archive → **optimizer** (advisory; SAFE or INTERFACE proposals).

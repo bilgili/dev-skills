@@ -62,6 +62,21 @@ reject / fail / friction loop, dashed blue = batch loop or advisory loop.
    and reports, the task planner re-scopes the groups, and the batch
    re-runs. No implementer widens its own scope mid-batch.
 
+## Human checkpoints
+
+Only the orchestrator talks to the user — no sub-agent asks a question,
+including `implementation-orchestrator`. It pauses at two points and waits
+for a reply before dispatching the next agent; it never assumes an answer.
+
+1. **Diagrams checkpoint** — right after `design-gate` approves and
+   interfaces FREEZE, before dispatching `task-planner`. Offers to run the
+   `design` skill, seeded from `design.md` and the TLA+ model, for an
+   architecture, sequence, or flow diagram.
+2. **Implementation checkpoint** — right after `task-planner` writes
+   `tasks.md`, before dispatching `implementation-orchestrator`'s first
+   **Plan**. On no, the pipeline stops before any worktree is created;
+   `tasks.md` is saved and the user resumes it explicitly later.
+
 ## The batch loop
 
 `task-planner` writes `tasks.md` once. From there, `implementation-orchestrator`

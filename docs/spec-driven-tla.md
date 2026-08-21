@@ -39,6 +39,20 @@ loop, dashed blue = advisory loop (post-archive).
    prose argument) or **evidence the objection does not hold** (returned to
    the gate). The gate re-reviews only models that PASS.
 
+## Human checkpoints
+
+Only the orchestrator talks to the user — no sub-agent asks a question. It
+pauses at two points and waits for a reply before dispatching the next
+agent; it never assumes an answer.
+
+1. **Diagrams checkpoint** — right after `design-gate` approves and
+   interfaces FREEZE, before dispatching `task-planner`. Offers to run the
+   `design` skill, seeded from `design.md` and the TLA+ model, for an
+   architecture, sequence, or flow diagram.
+2. **Implementation checkpoint** — right after `task-planner` writes
+   `tasks.md`, before dispatching `implementer`. On no, the pipeline stops;
+   `tasks.md` is saved and the user resumes it explicitly later.
+
 ## Documentation style: ASD-STE100
 
 `spec-author`, `task-planner`, `optimizer`, and `design-gate`'s verdicts write

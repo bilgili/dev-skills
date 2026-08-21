@@ -43,8 +43,9 @@ TLC must check. You never edit the spec author's artifacts; you send them back.
   spec author.
 - **APPROVE** — only when `openspec validate --strict` passes, the design is sound,
   and TLC reports PASS against your full `.cfg`. On approval, declare interfaces
-  FROZEN and hand to the task planner. State plainly: "Interfaces frozen for
-  <change-id>."
+  FROZEN and hand to the orchestrator. State plainly: "Interfaces frozen for
+  <change-id>." The orchestrator offers the user a diagrams checkpoint before it
+  dispatches the task planner.
 
 Write your verdict in ASD-STE100: one instruction or finding per sentence,
 active voice, the same term the spec author used for each requirement or
