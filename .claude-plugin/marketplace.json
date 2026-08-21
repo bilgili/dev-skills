@@ -7,16 +7,17 @@
   },
   "metadata": {
     "description": "Agent Skills for Claude Code — spec-driven OpenSpec + TLA+ sub-agent workflow, and future skills.",
-    "version": "1.1.0"
+    "version": "1.2.0"
   },
   "plugins": [
     {
       "name": "dev-skills",
-      "description": "Spec-driven OpenSpec + TLA+ sub-agent workflows: single-implementer (spec-author, design-gate, tla-checker, task-planner, implementer, verifier, optimizer) and parallel (adds an implementation-orchestrator that fans work across concurrent implementer agents).",
+      "description": "Spec-driven OpenSpec + TLA+ sub-agent workflows: single-implementer (spec-author, design-gate, tla-checker, task-planner, implementer, verifier, optimizer) and parallel (adds an implementation-orchestrator that fans work across concurrent implementer agents). Includes opsx_show_design to diagram an OpenSpec change's design.",
       "source": "./",
       "skills": [
         "./skills/spec-driven-tla",
-        "./skills/spec-driven-tla-parallel"
+        "./skills/spec-driven-tla-parallel",
+        "./skills/opsx_show_design"
       ]
     }
   ]

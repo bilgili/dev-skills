@@ -69,9 +69,10 @@ including `implementation-orchestrator`. It pauses at two points and waits
 for a reply before dispatching the next agent; it never assumes an answer.
 
 1. **Diagrams checkpoint** — right after `design-gate` approves and
-   interfaces FREEZE, before dispatching `task-planner`. Offers to run the
-   `design` skill, seeded from `design.md` and the TLA+ model, for an
-   architecture, sequence, or flow diagram.
+   interfaces FREEZE, before dispatching `task-planner`. Offers to dispatch
+   [`opsx_show_design`](opsx_show_design.md) for `<change-id>`, which draws
+   an architecture, sequence, or flow diagram from `design.md` and the TLA+
+   model.
 2. **Implementation checkpoint** — right after `task-planner` writes
    `tasks.md`, before dispatching `implementation-orchestrator`'s first
    **Plan**. On no, the pipeline stops before any worktree is created;
@@ -118,6 +119,8 @@ quoted error or trace text stay exact; STE governs prose only.
 
 - [spec-driven-tla](spec-driven-tla.md) — the single-implementer version this
   forks from.
+- [opsx_show_design](opsx_show_design.md) — draws the diagrams the
+  Checkpoint 1 offers.
 - [TLA+](tla-plus.md) — what it models, TLC, why bounds matter.
 - [OpenSpec](openspec.md) — phases, workspace layout, key commands.
 - [`skills/spec-driven-tla-parallel`](../skills/spec-driven-tla-parallel) —

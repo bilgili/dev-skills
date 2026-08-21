@@ -14,8 +14,8 @@ sub-agents, a TLA+ model directory, an OpenSpec workspace, and the TLA+
 toolchain (TLC + SANY) into a target project. Every generated spec, design,
 and task doc is written in ASD-STE100 Simplified Technical English. The
 orchestrator pauses twice for the user: once after the design freezes, to
-offer `/design` diagrams, and once after `tasks.md` is written, to confirm
-before implementation starts.
+offer `opsx_show_design` diagrams, and once after `tasks.md` is written, to
+confirm before implementation starts.
 
 See [docs/spec-driven-tla.md](docs/spec-driven-tla.md) for the full pipeline
 diagram and per-agent write boundaries, [docs/tla-plus.md](docs/tla-plus.md)
@@ -36,13 +36,27 @@ design freezes, confirmation before implementation starts.
 See [docs/spec-driven-tla-parallel.md](docs/spec-driven-tla-parallel.md) for
 the full pipeline diagram, the batch loop, and per-agent write boundaries.
 
+### [opsx_show_design](skills/opsx_show_design)
+
+Reads an OpenSpec change's `design.md`, spec deltas, and TLA+ model, and
+draws it — architecture diagram, one sequence diagram per scenario, a flow
+chart for any branching logic — using Claude Code's `design` skill. It never
+authors a design, only diagrams an existing one. Both `spec-driven-tla`
+skills' Checkpoint 1 dispatches this; use it standalone too, for any
+OpenSpec change.
+
+See [docs/opsx_show_design.md](docs/opsx_show_design.md) for what it reads
+and how it picks which diagrams to draw.
+
 ## Adding a skill
 
 Each skill lives under `skills/<skill-name>/` and gets one doc,
-`docs/<skill-name>.md`, with its own diagram. List it here under Skills with
-a one-paragraph summary and a link to its doc. Also add `./skills/<skill-name>`
-to the `skills` array in [.claude-plugin/marketplace.json](.claude-plugin/marketplace.json)
-so the marketplace picks it up.
+`docs/<skill-name>.md`, often with its own diagram — skip the diagram for a
+simple linear skill where the doc's own procedure list already shows the
+flow. List it here under Skills with a one-paragraph summary and a link to
+its doc. Also add `./skills/<skill-name>` to the `skills` array in
+[.claude-plugin/marketplace.json](.claude-plugin/marketplace.json) so the
+marketplace picks it up.
 
 ## Install
 

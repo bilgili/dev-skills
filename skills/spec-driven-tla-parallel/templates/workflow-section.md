@@ -88,10 +88,9 @@ before dispatching the next agent. It never assumes an answer.
 
 1. **Diagrams checkpoint** — right after the design gate approves and interfaces
    FREEZE, before dispatching the task planner. Ask the user: "Design approved for
-   `<change-id>`. Create diagrams (architecture, sequence, or flow) with `/design`
-   before implementation?" On yes, invoke the `design` skill, seeded with the
-   module boundaries and data flow from `design.md` and the state transitions
-   (`Init`/`Next`) from `specs/tla/<change-id>.tla`. On no, or once diagramming is
+   `<change-id>`. Create diagrams (architecture, sequence, or flow) with
+   `opsx_show_design` before implementation?" On yes, invoke the
+   `opsx_show_design` skill for `<change-id>`. On no, or once diagramming is
    done, dispatch the task planner.
 2. **Implementation checkpoint** — right after the task planner writes `tasks.md`,
    before dispatching the implementation-orchestrator's first **Plan**. Ask the
@@ -112,7 +111,7 @@ outside its group's `Files:` list. Either is invalid by construction.
 design-gate APPROVE (interfaces FROZEN)
       │
       ▼
-CHECKPOINT 1 — ask user: /design diagrams before implementation?
+CHECKPOINT 1 — ask user: opsx_show_design diagrams before implementation?
       │
       ▼
 task-planner → tasks.md (groups tagged Files: / Depends on:)

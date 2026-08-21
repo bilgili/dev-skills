@@ -65,9 +65,8 @@ lives at a different path (another machine, a plugin dir), substitute that path.
 2. Dispatch **design-gate** → reviews, writes `specs/tla/<change-id>.cfg`, requests
    a TLA+ check. On APPROVE, interfaces FREEZE.
 3. Dispatch **tla-checker** → SANY + TLC; PASS or FAIL with counterexample.
-4. **Checkpoint 1** — ask the user: create diagrams with `/design` before
-   implementation? On yes, run the `design` skill seeded from `design.md` and the
-   TLA+ model.
+4. **Checkpoint 1** — ask the user: create diagrams with `opsx_show_design` before
+   implementation? On yes, invoke the `opsx_show_design` skill for `<change-id>`.
 5. Dispatch **task-planner** → `tasks.md`.
 6. **Checkpoint 2** — ask the user: continue to implementation? On no, stop; the
    user resumes explicitly later.
