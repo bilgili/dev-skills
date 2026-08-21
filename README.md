@@ -39,11 +39,13 @@ the full pipeline diagram, the batch loop, and per-agent write boundaries.
 ### [opsx_show_design](skills/opsx_show_design)
 
 Reads an OpenSpec change's `design.md`, spec deltas, and TLA+ model, and
-draws it — architecture diagram, one sequence diagram per scenario, a flow
-chart for any branching logic — using Claude Code's `design` skill. It never
-authors a design, only diagrams an existing one. Both `spec-driven-tla`
-skills' Checkpoint 1 dispatches this; use it standalone too, for any
-OpenSpec change.
+publishes a technical design-review document — an HTML Artifact with inline
+SVG diagrams (architecture, one sequence diagram per scenario, a flow chart
+for any branching logic), written as a Principal Software Architect
+presenting to senior and mid-level engineers: literal signatures and
+contracts, not illustrative boxes. It never authors a design, only diagrams
+an existing one. Both `spec-driven-tla` skills' Checkpoint 1 dispatches
+this; use it standalone too, for any OpenSpec change.
 
 See [docs/opsx_show_design.md](docs/opsx_show_design.md) for what it reads
 and how it picks which diagrams to draw.
