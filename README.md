@@ -50,6 +50,20 @@ this; use it standalone too, for any OpenSpec change.
 See [docs/opsx_show_design.md](docs/opsx_show_design.md) for what it reads
 and how it picks which diagrams to draw.
 
+### [opsx_show_user_flows](skills/opsx_show_user_flows)
+
+Reads an OpenSpec change's `proposal.md` and spec deltas, finds every
+distinct type of user the change affects — end users, operators,
+IT/infrastructure, support, downstream integrators — and publishes one flow
+diagram per persona as an HTML Artifact with inline SVG: the exact screen,
+command, endpoint, or message each persona hits, no module names or
+signatures. The product-facing counterpart to `opsx_show_design`; run
+either independently, or both for a change that needs a technical and a
+product review.
+
+See [docs/opsx_show_user_flows.md](docs/opsx_show_user_flows.md) for how it
+finds personas and what it does when a change has no user-facing impact.
+
 ## Adding a skill
 
 Each skill lives under `skills/<skill-name>/` and gets one doc,

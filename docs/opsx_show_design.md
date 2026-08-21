@@ -57,6 +57,9 @@ OpenSpec change, at any time.
 
 ## See also
 
+- [opsx_show_user_flows](opsx_show_user_flows.md) — the product
+  counterpart: one flow diagram per affected persona, no engineering
+  internals.
 - [spec-driven-tla](spec-driven-tla.md) and
   [spec-driven-tla-parallel](spec-driven-tla-parallel.md) — the workflows
   whose Checkpoint 1 calls this skill.

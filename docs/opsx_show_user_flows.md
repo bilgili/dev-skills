@@ -1,0 +1,59 @@
+# opsx_show_user_flows
+
+Skill: [`skills/opsx_show_user_flows`](../skills/opsx_show_user_flows). A
+plain instruction skill — no sub-agents, no installer. It publishes a
+persona flow diagram for every distinct type of user an OpenSpec change
+affects; it never invents a persona or a step the source documents do not
+support.
+
+## Persona (the skill's own, while it runs)
+
+It acts as a product-minded software architect mapping how each affected
+user type experiences the change: the exact screen, CLI command, API
+endpoint, error message, or notification a persona hits, never a vague "the
+system responds." It keeps engineering internals out — no module names, no
+signatures, no data contracts. That is [opsx_show_design](opsx_show_design.md)'s
+job.
+
+## What it does
+
+1. Resolves `<change-id>` — the one named, or asks after `openspec list`.
+2. Reads `proposal.md` (why, what it affects) and every spec delta's
+   `#### Scenario:` block, plus `design.md` skimmed only for concrete
+   user-facing touchpoints — never its architecture.
+3. Identifies every distinct persona the change touches, each grounded in a
+   specific line from `proposal.md` or a scenario — never an invented
+   plausible-sounding role. A pure internal refactor with no user-facing
+   surface gets no personas: the skill says so and stops.
+4. Drafts one flow per persona: entry point, each step as a concrete
+   touchpoint, decision and error paths, outcome, and the requirement id
+   each step traces to.
+5. Loads `artifact-design` and `artifact-diagramming`, then hand-authors one
+   self-contained HTML page: a scope header with the persona list, one
+   theme-aware inline-SVG flow per persona, and an **Open questions**
+   section for anything a scenario left ambiguous.
+6. Publishes it with the Artifact tool, titled "`<change-id>` — user
+   flows."
+7. Reports back the artifact link, the persona list, and one sentence per
+   flow drawn.
+
+## Relation to opsx_show_design
+
+Both read the same OpenSpec change and both publish an HTML Artifact with
+inline SVG, but for different readers. `opsx_show_design` diagrams the
+system for engineers — modules, interfaces, contracts, invariants. This
+skill diagrams the experience for everyone the system touches, with no
+engineering internals in view. Run either independently, or both for a
+change that needs a technical review and a product review. Either can be
+offered at the `spec-driven-tla` / `spec-driven-tla-parallel` workflows'
+Checkpoint 1.
+
+## See also
+
+- [opsx_show_design](opsx_show_design.md) — the engineering counterpart:
+  architecture, sequence, and state diagrams from the same change.
+- [spec-driven-tla](spec-driven-tla.md) and
+  [spec-driven-tla-parallel](spec-driven-tla-parallel.md) — the workflows
+  whose Checkpoint 1 can dispatch this skill.
+- [OpenSpec](openspec.md) — where `proposal.md`, spec deltas, and
+  `change-id`s come from.
