@@ -2,7 +2,10 @@
 
 Skill: [`skills/opsx_show_design`](../skills/opsx_show_design). A plain
 instruction skill — no sub-agents, no installer. It publishes a design
-document for an OpenSpec change's existing design; it never authors one.
+document for an OpenSpec change's existing design, and states which
+technical persona uses each diagram and for what; it never authors a
+design, and never credits a persona with a use the design does not
+support.
 
 ## Persona
 
@@ -26,15 +29,22 @@ documents — a node is `FetchClient`, not "the client module"; an edge is
    whenever more than one module or interface is named, one sequence
    diagram per scenario with real cross-module interaction, and a flow
    chart or state diagram when there is branching logic to show.
-4. Loads the `artifact-design` and `artifact-diagramming` skills, then
-   hand-authors one self-contained HTML page: a scope header, each diagram
-   as theme-aware inline SVG (CSS custom properties, not hardcoded hex)
-   with a technical caption, a **Frozen interfaces** table pulled verbatim
-   from `design.md`, and an **Invariants** list pulled verbatim from the
-   `.cfg`.
-5. Publishes it with the Artifact tool, titled "`<change-id>` — design."
-6. Reports back the artifact link, one sentence per diagram drawn, and
-   which candidate diagrams were skipped and why.
+4. For each diagram, names the technical personas it actually serves — the
+   implementer coding straight from it, a reviewer checking a PR against
+   the frozen boundary, an on-call operator matching a stuck state,
+   a downstream system whose integration contract it is, a verifier
+   deriving tests, a future maintainer — and the concrete use each makes of
+   it. Skips any persona the design gives no real diagram to use.
+5. Loads the `artifact-design` and `artifact-diagramming` skills, then
+   hand-authors one self-contained HTML page: a scope header with a **Who
+   this helps** list, each diagram as theme-aware inline SVG (CSS custom
+   properties, not hardcoded hex) captioned with its contract AND its
+   persona use, a **Frozen interfaces** table pulled verbatim from
+   `design.md`, and an **Invariants** list pulled verbatim from the `.cfg`.
+6. Publishes it with the Artifact tool, titled "`<change-id>` — design."
+7. Reports back the artifact link, the persona list with each one's use,
+   one sentence per diagram drawn, and which candidate diagrams were
+   skipped and why.
 
 If `design.md` does not exist yet, it says so and stops, pointing to
 `spec-author` (or the `spec-driven-tla` / `spec-driven-tla-parallel`

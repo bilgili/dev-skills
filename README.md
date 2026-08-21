@@ -43,12 +43,15 @@ publishes a technical design-review document — an HTML Artifact with inline
 SVG diagrams (architecture, one sequence diagram per scenario, a flow chart
 for any branching logic), written as a Principal Software Architect
 presenting to senior and mid-level engineers: literal signatures and
-contracts, not illustrative boxes. It never authors a design, only diagrams
-an existing one. Both `spec-driven-tla` skills' Checkpoint 1 dispatches
-this; use it standalone too, for any OpenSpec change.
+contracts, not illustrative boxes. Each diagram states which technical
+persona uses it and for what — implementer, reviewer, on-call operator,
+downstream system, verifier, maintainer — skipping any persona the design
+gives no real use to. It never authors a design, only diagrams an existing
+one. Both `spec-driven-tla` skills' Checkpoint 1 dispatches this; use it
+standalone too, for any OpenSpec change.
 
 See [docs/opsx_show_design.md](docs/opsx_show_design.md) for what it reads
-and how it picks which diagrams to draw.
+and how it picks which diagrams and personas to include.
 
 ### [opsx_show_user_flows](skills/opsx_show_user_flows)
 
