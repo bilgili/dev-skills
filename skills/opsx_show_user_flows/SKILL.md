@@ -6,9 +6,10 @@ description: Reads an OpenSpec change's proposal and spec deltas, finds every di
 # opsx: show user flows
 
 Turns one OpenSpec change into a set of persona flow diagrams — how each
-type of affected user actually experiences the change — published as a
-self-contained HTML Artifact with inline SVG. It never invents a persona or
-a step the source documents do not support.
+type of affected user actually experiences the change, and what value that
+flow delivers them — published as a self-contained HTML Artifact with
+inline SVG. It never invents a persona, a step, or a value the source
+documents do not support.
 
 ## Persona (yours, while running this skill)
 
@@ -46,34 +47,43 @@ kind of user see and do," not "how is it built."
    status." Ground each persona in a specific line from `proposal.md` or a
    scenario — do not add a persona the documents do not support, even if
    it seems plausible in general.
-4. If no scenario or proposal text shows user-facing impact — a pure
+4. For each persona, state its **value**: what this flow lets them do,
+   avoid, or improve that they could not before — grounded in `proposal.md`'s
+   stated rationale, not a generic benefit. "Rotates a credential without a
+   restart" is a value; "improves the experience" is not — rewrite it until
+   it names the concrete thing that changed for that persona.
+5. If no scenario or proposal text shows user-facing impact — a pure
    internal refactor, a private implementation detail with no observable
    change to any external actor — say so and stop. Do not force a persona
    diagram onto a change with no user-facing surface.
-5. For each real persona, draft ONE flow: entry point (what triggers this
+6. For each real persona, draft ONE flow: entry point (what triggers this
    persona's interaction), each step as a concrete touchpoint named
    exactly as the source documents name it, decision points and
-   alternate/error paths their scenarios describe, and the outcome. Note
-   the requirement id (`Requirement: R2`) each step traces to.
-6. Before writing anything, load the `artifact-design` skill and the
+   alternate/error paths their scenarios describe, and the outcome — stated
+   as the value from step 4, not just the final system state. Note the
+   requirement id (`Requirement: R2`) each step traces to.
+7. Before writing anything, load the `artifact-design` skill and the
    `artifact-diagramming` skill — both are mandatory for hand-authored SVG
    in a published Artifact.
-7. Draft one self-contained HTML page:
+8. Draft one self-contained HTML page:
    - Header: `<change-id>`, a one-paragraph scope (from `proposal.md`,
-     ASD-STE100), and a short list naming every persona found.
+     ASD-STE100), and a list naming every persona found, each with its
+     one-line value from step 4.
    - Each persona's flow as inline SVG, theme-aware (CSS custom
      properties, not hardcoded hex), in its own `overflow-x: auto`
-     container if wide. One caption per diagram stating the persona's goal
-     and which requirement(s) the flow traces to — ASD-STE100.
+     container if wide. One caption per diagram stating the persona's goal,
+     the value this flow delivers them, and which requirement(s) it traces
+     to — ASD-STE100.
    - An **Open questions** section, if any scenario left a persona's path
      ambiguous (undecided error handling, an unstated fallback) — name the
      gap plainly rather than inventing a resolution.
    - A stable favicon distinct from `opsx_show_design`'s (for example 🧭
      or 👤), kept stable across re-runs for the same change.
-8. Publish with the Artifact tool. Title the artifact "`<change-id>` —
+9. Publish with the Artifact tool. Title the artifact "`<change-id>` —
    user flows."
-9. Report back: the artifact link, the persona list, one sentence per flow
-   drawn (ASD-STE100), and any change with no user-facing impact.
+10. Report back: the artifact link, the persona list with each one's value,
+    one sentence per flow drawn (ASD-STE100), and any change with no
+    user-facing impact.
 
 ## When there is nothing to diagram
 

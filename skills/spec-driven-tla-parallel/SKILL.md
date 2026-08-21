@@ -79,8 +79,9 @@ that path.
 2. Dispatch **design-gate** → reviews, writes `specs/tla/<change-id>.cfg`,
    requests a TLA+ check. On APPROVE, interfaces FREEZE.
 3. Dispatch **tla-checker** → SANY + TLC; PASS or FAIL with counterexample.
-4. **Checkpoint 1** — ask the user: create diagrams with `opsx_show_design`
-   before implementation? On yes, invoke the `opsx_show_design` skill for
+4. **Checkpoint 1** — ask the user: create diagrams before implementation —
+   engineering diagrams (`opsx_show_design`), user-flow diagrams
+   (`opsx_show_user_flows`), both, or skip? Invoke each skill picked, for
    `<change-id>`.
 5. Dispatch **task-planner** → `tasks.md`, every group tagged `Files:` and
    `Depends on:`.

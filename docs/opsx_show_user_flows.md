@@ -3,8 +3,8 @@
 Skill: [`skills/opsx_show_user_flows`](../skills/opsx_show_user_flows). A
 plain instruction skill — no sub-agents, no installer. It publishes a
 persona flow diagram for every distinct type of user an OpenSpec change
-affects; it never invents a persona or a step the source documents do not
-support.
+affects, and states the value each flow delivers that persona; it never
+invents a persona, a step, or a value the source documents do not support.
 
 ## Persona (the skill's own, while it runs)
 
@@ -23,19 +23,23 @@ job.
    user-facing touchpoints — never its architecture.
 3. Identifies every distinct persona the change touches, each grounded in a
    specific line from `proposal.md` or a scenario — never an invented
-   plausible-sounding role. A pure internal refactor with no user-facing
+   plausible-sounding role.
+4. States each persona's **value**: the concrete thing this flow lets them
+   do, avoid, or improve — "rotates a credential without a restart," not
+   "improves the experience." A pure internal refactor with no user-facing
    surface gets no personas: the skill says so and stops.
-4. Drafts one flow per persona: entry point, each step as a concrete
-   touchpoint, decision and error paths, outcome, and the requirement id
-   each step traces to.
-5. Loads `artifact-design` and `artifact-diagramming`, then hand-authors one
-   self-contained HTML page: a scope header with the persona list, one
-   theme-aware inline-SVG flow per persona, and an **Open questions**
-   section for anything a scenario left ambiguous.
-6. Publishes it with the Artifact tool, titled "`<change-id>` — user
+5. Drafts one flow per persona: entry point, each step as a concrete
+   touchpoint, decision and error paths, and the outcome stated as that
+   persona's value — plus the requirement id each step traces to.
+6. Loads `artifact-design` and `artifact-diagramming`, then hand-authors one
+   self-contained HTML page: a scope header listing every persona with its
+   value, one theme-aware inline-SVG flow per persona (captioned with goal,
+   value, and requirement id), and an **Open questions** section for
+   anything a scenario left ambiguous.
+7. Publishes it with the Artifact tool, titled "`<change-id>` — user
    flows."
-7. Reports back the artifact link, the persona list, and one sentence per
-   flow drawn.
+8. Reports back the artifact link, the persona list with each one's value,
+   and one sentence per flow drawn.
 
 ## Relation to opsx_show_design
 

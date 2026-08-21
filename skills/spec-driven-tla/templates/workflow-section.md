@@ -66,10 +66,10 @@ assumes an answer.
 
 1. **Diagrams checkpoint** — right after the design gate approves and interfaces
    FREEZE, before dispatching the task planner. Ask the user: "Design approved for
-   `<change-id>`. Create diagrams (architecture, sequence, or flow) with
-   `opsx_show_design` before implementation?" On yes, invoke the
-   `opsx_show_design` skill for `<change-id>`. On no, or once diagramming is
-   done, dispatch the task planner.
+   `<change-id>`. Create diagrams before implementation — engineering diagrams
+   (`opsx_show_design`), user-flow diagrams (`opsx_show_user_flows`), both, or
+   skip?" Invoke each skill the user picked, for `<change-id>`. On skip, or once
+   diagramming is done, dispatch the task planner.
 2. **Implementation checkpoint** — right after the task planner writes `tasks.md`,
    before dispatching the implementer. Ask the user: "`tasks.md` ready for
    `<change-id>` (N tasks). Continue to implementation?" On no, stop the pipeline —
@@ -101,7 +101,7 @@ through a new OpenSpec proposal is invalid by construction.
                   interfaces FROZEN ▼  └──────────────┐
                             ┌──────────────┐          │ interface friction
                             │ CHECKPOINT 1 │          │ → new OpenSpec change
-                            │ show design? │          │
+                            │  diagrams?   │          │
                             └──────┬───────┘          │
                                    ▼                  │
                             ┌──────────────┐          │

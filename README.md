@@ -14,8 +14,8 @@ sub-agents, a TLA+ model directory, an OpenSpec workspace, and the TLA+
 toolchain (TLC + SANY) into a target project. Every generated spec, design,
 and task doc is written in ASD-STE100 Simplified Technical English. The
 orchestrator pauses twice for the user: once after the design freezes, to
-offer `opsx_show_design` diagrams, and once after `tasks.md` is written, to
-confirm before implementation starts.
+offer `opsx_show_design` and/or `opsx_show_user_flows` diagrams, and once
+after `tasks.md` is written, to confirm before implementation starts.
 
 See [docs/spec-driven-tla.md](docs/spec-driven-tla.md) for the full pipeline
 diagram and per-agent write boundaries, [docs/tla-plus.md](docs/tla-plus.md)
@@ -56,13 +56,14 @@ Reads an OpenSpec change's `proposal.md` and spec deltas, finds every
 distinct type of user the change affects — end users, operators,
 IT/infrastructure, support, downstream integrators — and publishes one flow
 diagram per persona as an HTML Artifact with inline SVG: the exact screen,
-command, endpoint, or message each persona hits, no module names or
-signatures. The product-facing counterpart to `opsx_show_design`; run
-either independently, or both for a change that needs a technical and a
-product review.
+command, endpoint, or message each persona hits, and the concrete value that
+flow delivers them, no module names or signatures. The product-facing
+counterpart to `opsx_show_design`; run either independently, or both for a
+change that needs a technical and a product review.
 
 See [docs/opsx_show_user_flows.md](docs/opsx_show_user_flows.md) for how it
-finds personas and what it does when a change has no user-facing impact.
+finds personas, states their value, and what it does when a change has no
+user-facing impact.
 
 ## Adding a skill
 
