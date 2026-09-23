@@ -1,0 +1,139 @@
+<svg viewBox="0 0 1000 1150" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrowBlack" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#111827"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#b91c1c"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#1d4ed8"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1000" height="1150" fill="#ffffff"/>
+  <text x="500" y="24" text-anchor="middle" font-size="18" font-weight="bold" fill="#111827">JEV skills — orchestrator decision loop (one weighed choice)</text>
+
+  <g transform="translate(0,35)">
+
+  <!-- main column flow -->
+  <path d="M500,70 L500,110" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+  <path d="M500,166 L500,200" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+  <text x="510" y="188" font-size="11" fill="#111827">yes</text>
+  <path d="M500,256 L500,290" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+  <text x="510" y="278" font-size="11" fill="#111827">no</text>
+  <path d="M500,346 L500,380" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+  <path d="M500,450 L500,484" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+  <path d="M500,540 L500,574" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+  <path d="M500,644 L500,700" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+  <text x="510" y="668" font-size="11" fill="#111827">act / review for</text>
+  <text x="510" y="682" font-size="11" fill="#111827">another option</text>
+  <path d="M500,770 L500,804" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+  <path d="M500,860 L500,894" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+
+  <!-- side exits -->
+  <path d="M650,138 L760,138" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+  <text x="705" y="130" text-anchor="middle" font-size="11" fill="#111827">no</text>
+  <path d="M650,228 L760,228" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+  <text x="705" y="220" text-anchor="middle" font-size="11" fill="#111827">yes</text>
+  <path d="M650,512 L760,512" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6,4" fill="none" marker-end="url(#arrowRed)"/>
+  <text x="705" y="504" text-anchor="middle" font-size="10" fill="#b91c1c">call fails</text>
+  <path d="M350,609 L262,609" stroke="#111827" stroke-width="2" fill="none" marker-end="url(#arrowBlack)"/>
+  <text x="306" y="601" text-anchor="middle" font-size="10" fill="#111827">abstain,</text>
+  <text x="306" y="627" text-anchor="middle" font-size="10" fill="#111827">or agrees</text>
+
+  <!-- re-dispatch loop back to the start -->
+  <path d="M350,929 L20,929 L20,35 L335,35" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="2,3" fill="none" marker-end="url(#arrowBlue)"/>
+  <text x="28" y="480" font-size="11" fill="#1d4ed8" transform="rotate(-90 28 480)">re-dispatch with every settled decision</text>
+
+  <!-- nodes -->
+  <rect x="350" y="0" width="300" height="70" rx="8" fill="#334155"/>
+  <text x="500" y="26" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">subagent result or own routing choice</text>
+  <text x="500" y="44" text-anchor="middle" font-size="11" fill="#e2e8f0">holds the current pick</text>
+  <text x="500" y="59" text-anchor="middle" font-size="10" fill="#cbd5e1">subagents never call Jev</text>
+
+  <rect x="350" y="110" width="300" height="56" rx="8" fill="#3730a3"/>
+  <text x="500" y="134" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">needs weighting?</text>
+  <text x="500" y="152" text-anchor="middle" font-size="10" fill="#c7d2fe">runtime judgment, no fixed list</text>
+
+  <rect x="760" y="110" width="220" height="56" rx="8" fill="#334155"/>
+  <text x="870" y="134" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">continue</text>
+  <text x="870" y="152" text-anchor="middle" font-size="10" fill="#e2e8f0">with the current pick</text>
+
+  <rect x="350" y="200" width="300" height="56" rx="8" fill="#3730a3"/>
+  <text x="500" y="224" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">already settled?</text>
+  <text x="500" y="242" text-anchor="middle" font-size="10" fill="#c7d2fe">never weigh a settled decision again</text>
+
+  <rect x="760" y="200" width="220" height="56" rx="8" fill="#334155"/>
+  <text x="870" y="224" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">use the settled</text>
+  <text x="870" y="242" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">decision</text>
+
+  <rect x="350" y="290" width="300" height="56" rx="8" fill="#065f46"/>
+  <text x="500" y="314" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">write the decision brief</text>
+  <text x="500" y="332" text-anchor="middle" font-size="10" fill="#d1fae5">question, options, current pick, evidence — no secrets</text>
+
+  <rect x="350" y="380" width="300" height="70" rx="8" fill="#3730a3"/>
+  <text x="500" y="403" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">select the route (once per run)</text>
+  <text x="500" y="421" text-anchor="middle" font-size="11" fill="#e0e7ff">1. Jev MCP tool, any server (e.g. jev_classify)</text>
+  <text x="500" y="437" text-anchor="middle" font-size="11" fill="#e0e7ff">2. TypeSafe HTTP API via typesafe:typesafe-ai</text>
+
+  <rect x="350" y="484" width="300" height="56" rx="8" fill="#0e7490"/>
+  <text x="500" y="508" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">ask Jev a Choice</text>
+  <text x="500" y="526" text-anchor="middle" font-size="10" fill="#cffafe">state = brief · options = candidates</text>
+
+  <rect x="760" y="470" width="220" height="84" rx="8" fill="#991b1b"/>
+  <text x="870" y="494" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">STOP the workflow</text>
+  <text x="870" y="511" text-anchor="middle" font-size="10" fill="#fee2e2">log channel-failed</text>
+  <text x="870" y="525" text-anchor="middle" font-size="10" fill="#fee2e2">log waiting calls as unresolved</text>
+  <text x="870" y="539" text-anchor="middle" font-size="10" fill="#fee2e2">user checks route + credentials</text>
+
+  <rect x="350" y="574" width="300" height="70" rx="8" fill="#3730a3"/>
+  <text x="500" y="597" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">map the confidence</text>
+  <text x="500" y="615" text-anchor="middle" font-size="11" fill="#e0e7ff">act ≥ 0.8 · review ≥ 0.5 · abstain &lt; 0.5</text>
+  <text x="500" y="631" text-anchor="middle" font-size="10" fill="#c7d2fe">fixed thresholds; Jev advises only</text>
+
+  <rect x="40" y="581" width="222" height="56" rx="8" fill="#065f46"/>
+  <text x="151" y="605" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">log (caller)</text>
+  <text x="151" y="623" text-anchor="middle" font-size="10" fill="#d1fae5">the current pick stands</text>
+
+  <rect x="350" y="700" width="300" height="70" rx="8" fill="#b45309"/>
+  <text x="500" y="723" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">ask the user</text>
+  <text x="500" y="741" text-anchor="middle" font-size="11" fill="#ffedd5">one question for all disagreements</text>
+  <text x="500" y="756" text-anchor="middle" font-size="11" fill="#ffedd5">of this wave</text>
+
+  <rect x="350" y="804" width="300" height="56" rx="8" fill="#065f46"/>
+  <text x="500" y="828" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">log (user) · settle the decision</text>
+  <text x="500" y="846" text-anchor="middle" font-size="10" fill="#d1fae5">logged only after the answer</text>
+
+  <rect x="350" y="894" width="300" height="70" rx="8" fill="#3730a3"/>
+  <text x="500" y="918" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">user overrode a subagent?</text>
+  <text x="500" y="936" text-anchor="middle" font-size="11" fill="#e0e7ff">yes → re-dispatch it</text>
+  <text x="500" y="951" text-anchor="middle" font-size="11" fill="#e0e7ff">no → continue with the user choice</text>
+
+  <!-- legend -->
+  <g transform="translate(0,990)">
+    <rect x="16" y="4" width="16" height="16" fill="#3730a3"/>
+    <text x="38" y="17" font-size="11" fill="#111827">orchestrator decides or routes</text>
+    <rect x="250" y="4" width="16" height="16" fill="#065f46"/>
+    <text x="272" y="17" font-size="11" fill="#111827">orchestrator writes (brief, decisions.md)</text>
+    <rect x="530" y="4" width="16" height="16" fill="#0e7490"/>
+    <text x="552" y="17" font-size="11" fill="#111827">Jev call — external advice</text>
+    <rect x="760" y="4" width="16" height="16" fill="#334155"/>
+    <text x="782" y="17" font-size="11" fill="#111827">endpoint</text>
+
+    <rect x="16" y="32" width="16" height="16" fill="#b45309"/>
+    <text x="38" y="45" font-size="11" fill="#111827">human decision — orchestrator asks the user</text>
+    <rect x="370" y="32" width="16" height="16" fill="#991b1b"/>
+    <text x="392" y="45" font-size="11" fill="#111827">failure stop</text>
+
+    <line x1="16" y1="70" x2="46" y2="70" stroke="#111827" stroke-width="2" marker-end="url(#arrowBlack)"/>
+    <text x="54" y="74" font-size="11" fill="#111827">flow</text>
+    <line x1="160" y1="70" x2="190" y2="70" stroke="#b91c1c" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#arrowRed)"/>
+    <text x="198" y="74" font-size="11" fill="#111827">failure</text>
+    <line x1="320" y1="70" x2="350" y2="70" stroke="#1d4ed8" stroke-width="2" stroke-dasharray="2,3" marker-end="url(#arrowBlue)"/>
+    <text x="358" y="74" font-size="11" fill="#111827">re-dispatch loop</text>
+    <text x="16" y="100" font-size="11" fill="#111827">Every Jev call gets one entry in decisions.md of the current change directory (active or archived).</text>
+  </g>
+
+  </g>
+</svg>

@@ -58,6 +58,10 @@ Only the orchestrator calls Jev.
 It frames each judgment as a Choice with the decision brief as state.
 The [shared protocol](skills/_shared/jev-protocol.md) defines route selection, confidence thresholds, user escalation, log timing, failure stops, and settled decisions.
 The orchestrator writes `decisions.md` in the current change directory, before and after the archive.
+
+See [docs/spec-driven-tla-jev.md](docs/spec-driven-tla-jev.md) and
+[docs/spec-driven-tla-parallel-jev.md](docs/spec-driven-tla-parallel-jev.md)
+for the weighing points in each pipeline and the Jev decision loop diagram.
 The application programming interface (API) key stays in the environment, outside briefs and logs.
 
 ### [opsx_show_design](skills/opsx_show_design)
