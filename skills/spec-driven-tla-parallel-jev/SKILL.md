@@ -46,3 +46,52 @@ Run the workflow as the main-session orchestrator, as [the base skill](../spec-d
 Keep its phase gates and user checkpoints.
 Read [the shared Jev protocol](../_shared/jev-protocol.md).
 Apply that protocol throughout the workflow.
+
+## Agent workflow
+
+```
+ Step 0   Jev route?  (Jev MCP tool │ typesafe:typesafe-ai)
+             │ yes                         └── none ─▶ STOP, show install commands
+             ▼
+ Step 1   base installer  (install.sh │ install.ps1)   agents stay unchanged
+             │
+             ▼
+ Step 2   base workflow; the main-session orchestrator weighs at ◆
+
+spec-author → design-gate ⇄ tla-checker
+      │ ◆ APPROVE / REJECT
+      ▼ interfaces FROZEN
+CHECKPOINT 1 — user decides: opsx_show_design and/or opsx_show_user_flows?
+      │
+      ▼
+task-planner → tasks.md (groups tagged Files: / Depends on:)
+      │
+      ▼
+CHECKPOINT 2 — user decides: continue to implementation?
+      │
+      ▼
+implementation-orchestrator (Plan)
+      │  ◆ batch composition: which ready groups run together?
+      ▼
+main session dispatches implementer × N — ONE message, concurrent
+      │
+      ├─ group DONE ─────────────────────┐
+      └─ group STOPS ─┐                  ▼
+                      │   implementation-orchestrator (Integrate)
+                      │    merges DONE worktrees, checks off tasks.md
+                      ▼
+          ◆ stop: safe fix, re-scope, or new spec?
+          (one user question for all disagreements of the wave)
+      │
+      ▼ (repeat Plan → dispatch → Integrate until every group is checked)
+verifier ◆ tests match the spec? → green → openspec archive
+      ▼ (post-archive, advisory)
+optimizer ◆ SAFE → implementer (safe loop) · INTERFACE → spec-author
+
+ ◆  The orchestrator may weigh the returned decision with Jev.
+    It weighs by runtime judgment, not from a fixed list; ◆ marks typical points.
+    Subagents, including the implementation-orchestrator, never call Jev.
+    Checkpoints stay user decisions.
+    Each ◆ runs the decision loop in the shared protocol.
+    Every Jev call goes to decisions.md in the current change directory.
+```
