@@ -36,6 +36,30 @@ design freezes, confirmation before implementation starts.
 See [docs/spec-driven-tla-parallel.md](docs/spec-driven-tla-parallel.md) for
 the full pipeline diagram, the batch loop, and per-agent write boundaries.
 
+### JEV advice variants
+
+[spec-driven-tla-jev](skills/spec-driven-tla-jev/SKILL.md) adds Jev advice to the single-implementer workflow.
+[spec-driven-tla-parallel-jev](skills/spec-driven-tla-parallel-jev/SKILL.md) adds the same advice to the parallel workflow.
+Jev is the TypeSafe judgment model.
+Each sibling contains only `SKILL.md` and uses its base installer without change.
+Installed agents and tool permissions stay unchanged.
+
+Both siblings require at least one Jev route before the base install.
+A route is a Model Context Protocol (MCP) tool that asks Jev a choice question, from any server (for example mcpflow `jev_classify`), or the guidance skill `typesafe:typesafe-ai`.
+The orchestrator prefers an MCP tool and uses the TypeSafe HTTP API through the skill otherwise.
+To add the skill, install its plugin with these commands:
+
+```sh
+claude plugin marketplace add typesafe-ai/skills
+claude plugin install typesafe@typesafe-ai
+```
+
+Only the orchestrator calls Jev.
+It frames each judgment as a Choice with the decision brief as state.
+The [shared protocol](skills/_shared/jev-protocol.md) defines route selection, confidence thresholds, user escalation, log timing, failure stops, and settled decisions.
+The orchestrator writes `decisions.md` in the current change directory, before and after the archive.
+The application programming interface (API) key stays in the environment, outside briefs and logs.
+
 ### [opsx_show_design](skills/opsx_show_design)
 
 Reads an OpenSpec change's `design.md`, spec deltas, and TLA+ model, and
@@ -135,7 +159,8 @@ ln -s ~/dev-skills/skills/spec-driven-tla ~/.claude/skills/spec-driven-tla
 - `openspec/` — via `openspec init`, if not already present.
 - The TLA+ toolchain: JDK + `tla2tools.jar` + `tlc` / `sany` wrappers.
 
-The installer does not touch your `CLAUDE.md`. The orchestrator contract —
+The base installer does not change your `CLAUDE.md`. The JEV siblings use that installer without change.
+The orchestrator contract —
 roles, the two hard rules, the mechanical guard, the pipeline graph — lives in
 [skills/spec-driven-tla/templates/workflow-section.md](skills/spec-driven-tla/templates/workflow-section.md).
 Read it, or paste it into your own `CLAUDE.md` if you want it there.
