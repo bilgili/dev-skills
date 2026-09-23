@@ -115,37 +115,3 @@ Use these fields for each call entry:
 | Jev action | `act`, `review`, or `abstain`, from the fixed thresholds. |
 | current pick | The choice before Jev advice and any user override. |
 | escalation outcome | `caller`, `user` with the user choice, `unresolved`, or `channel-failed`. |
-
-### Decision loop
-
-```
- subagent result, or own routing choice  (holds the current pick)
-        │
-        ▼
- needs weighting? ──── no ────────────────▶ continue with current pick
-        │ yes
-        ▼
- already settled? ──── yes ───────────────▶ use the settled decision
-        │ no
-        ▼
- decision brief ─▶ route: 1. Jev MCP tool  2. TypeSafe HTTP API
-        │                         │
-        │                         └─ call fails ─▶ log channel-failed,
-        │                                          log waiting as unresolved,
-        ▼                                          STOP (check route)
- Jev Choice ─▶ confidence: act ≥ 0.8 │ review ≥ 0.5 │ abstain < 0.5
-        │
-        ├─ abstain, or Jev agrees ─▶ log (caller) ─▶ continue with current pick
-        │
-        └─ act / review for another option
-                 │
-                 ▼
-          batch with the other disagreements of this wave
-                 │
-                 ▼
-          ask the user ─▶ log (user) ─▶ settle the decision
-                 │
-                 ▼
-          user overrode a subagent? ─▶ re-dispatch it with every
-                                       settled decision
-```
